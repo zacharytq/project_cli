@@ -2,6 +2,12 @@ Project Plan
 
 Mountain Bike Trails of South Florida
 
-1. Can list trails by zip-code, county, or all.
-2. User can choose trail object to get more information.
-3. User can go back to previous list of results, start new search, or quit.
+CLI:
+
+  1. Can list trails by zip-code, county, or all.
+  2. User can choose trail object to get more information.
+  3. User can go back to previous list of results, start new search, or quit.
+
+Trail Objects:
+  1. Trail.all will return array with all trail objects.
+  
