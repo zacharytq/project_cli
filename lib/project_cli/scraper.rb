@@ -1,0 +1,2 @@
+class ProjectCli::Scraper
+end
