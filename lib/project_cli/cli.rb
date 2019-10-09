@@ -24,7 +24,7 @@ class ProjectCli::Cli
         puts "Please enter difficulty: [options]"
         search_by_difficulty(gets.strip)
       when "all"
-        list_all_trails
+        ProjectCli::Trail.list_all_trails
       when "quit"
         quit_trigger = false
       else
