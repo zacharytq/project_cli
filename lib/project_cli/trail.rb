@@ -20,6 +20,6 @@ class ProjectCli::Trail
   end
 
   def self.search_by_county(input)
-    
+    self.all.select {|i| i.county.capitalize == input.capitalize}
   end
 end
