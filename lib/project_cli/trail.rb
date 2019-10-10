@@ -22,4 +22,8 @@ class ProjectCli::Trail
   def self.search_by_county(input)
     self.all.select {|i| i.county.capitalize == input.capitalize}
   end
+
+  def self.search_by_region(input)
+    self.all.select {|i| i.region == input.capitalize}
+  end
 end

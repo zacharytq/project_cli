@@ -15,15 +15,13 @@ class ProjectCli::Cli
 
       case input
       when "region"
-        puts "Please enter region: [options]"
-        search_by_region(gets.strip)
+        search_by_region
       when "county"
         search_by_county
       when "difficulty"
-        puts "Please enter difficulty: [options]"
-        search_by_difficulty(gets.strip)
+        search_by_difficulty
       when "all"
-        ProjectCli::Trail.list_all_trails
+        list_all_trails
       when "quit"
         quit_trigger = false
       else
@@ -75,8 +73,47 @@ class ProjectCli::Cli
     end
   end
 
-  def search_by_region(region)
-    region
+  def search_by_region
+    second_level = true
+    puts "Please enter region: "
+    search_region = gets.strip.capitalize
+    list = ProjectCli::Trail.search_by_region(search_region)
+    while second_level
+      puts "Trails in #{search_region} region:"
+      list.each_with_index {|x, i| puts "#{i+1}. #{x.name}"}
+      puts "Select a trail to see more information, or type back to return to main menu: [number/back]"
+      input = gets.strip
+      if input.capitalize == "Back"
+        second_level = false
+      elsif input.to_i.to_s == input
+        int_input = input.to_i - 1
+        if list[int_input] != nil
+          trail = list[int_input]
+          third_level = true
+          puts trail.name
+          puts "Region: #{trail.region}"
+          puts "County: #{trail.county}"
+          #puts "Difficulty: #{trail.difficulty}"
+          while third_level
+            puts "Would you like to go back to your results, or return to the main menu? [back/main]"
+            response = gets.strip
+            case response.capitalize
+            when "Back"
+              third_level = false
+            when "Main"
+              second_level = false
+              third_level = false
+            else
+              puts "Please enter a valid input."
+            end
+        #  else
+          #  puts "Please enter a valid input."
+          end
+        end
+      else
+        puts "Please enter valid input."
+      end
+    end
   end
 
   def search_by_difficulty(difficulty)
@@ -84,7 +121,39 @@ class ProjectCli::Cli
   end
 
   def list_all_trails
-    puts "all the trails"
+    second_level = true
+    list = ProjectCli::Trail.all
+    while second_level
+      puts "All trails in Florida: "
+      list.each_with_index {|i, index| puts "#{index + 1}. #{i.name}"}
+      puts "Choose a trail to get more information, or go back to main menu. [number/back]"
+      input = gets.strip
+      int_input = input.to_i - 1
+      if input == "back"
+        second_level = false
+      elsif input.to_i.to_s == input && list[int_input] != nil
+        third_level = true
+        puts list[int_input].name
+        puts "County: #{list[int_input].county}"
+        while third_level
+          puts "Would you like to go back all trails, or return to main menu? [back, main]"
+          response = gets.strip
+          case response.capitalize
+          when "Back"
+            third_level = false
+          when "Main"
+            second_level = false
+            third_level = false
+          else
+            puts "Please enter a valid input."
+          end
+        end
+      else
+        puts "Please enter a valid"
+      end
+    end
+
+
   end
 
 end
